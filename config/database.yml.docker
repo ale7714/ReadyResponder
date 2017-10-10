@@ -1,0 +1,7 @@
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: docker_test
+  template: template0
+  pool: 5
+  username: 'docker'

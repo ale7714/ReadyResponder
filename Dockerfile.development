@@ -1,0 +1,29 @@
+FROM ruby:2.3.1-slim
+MAINTAINER ReadyResponder
+
+RUN apt-get update -qq && \
+    apt-get install -y \
+    build-essential \
+    chromedriver \
+    chromium \
+    curl \
+    fonts-liberation \
+    git \
+    imagemagick \
+    libappindicator1 \
+    libgconf-2-4 \
+    libgtk-3-0 \
+    libmagickcore-dev \
+    libmagickwand-dev \
+    libpq-dev \
+    libx11-xcb1 \
+    postgresql-9.4 \
+    libsqlite3-dev \
+    xvfb
+
+WORKDIR /app
+COPY Gemfile* ./
+RUN gem update --system && \
+    bundle install
+
+CMD ["rails", "console"]

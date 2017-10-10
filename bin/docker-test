@@ -1,0 +1,11 @@
+#!/bin/sh
+
+export RAILS_ENV=test
+cp config/database.yml.docker config/database.yml
+sed -i -e s/peer/trust/  /etc/postgresql/9.4/main/pg_hba.conf
+service postgresql start
+su postgres --command 'createuser -w -d -r -s docker'
+su postgres --command 'createdb -O docker docker_test'
+bundle exec rake db:test:prepare
+bundle exec rspec spec
+rm config/database.yml
